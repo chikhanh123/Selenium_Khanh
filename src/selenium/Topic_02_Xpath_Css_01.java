@@ -2,6 +2,8 @@ package selenium;
 
 import org.testng.annotations.Test;
 import org.testng.Assert;
+
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -13,6 +15,7 @@ import org.testng.annotations.BeforeTest;
 
 public class Topic_02_Xpath_Css_01 {
 	WebDriver driver;
+	
   @Test
   public void Login_Empty() {
 	  driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
@@ -52,6 +55,28 @@ public class Topic_02_Xpath_Css_01 {
 	  driver.findElement(By.xpath("//button[@id='send2']")).click();
 	  String Pass_Incorrect = driver.findElement(By.xpath("//span[text()='Invalid login or password.']")).getText();
 	  Assert.assertEquals(Pass_Incorrect, "Invalid login or password.");
+  }
+  @Test
+  public void Create_an_account() {
+	  driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
+	  driver.findElement(By.xpath("//span[text()='Create an Account']")).click();
+	  driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys("khanh");
+	  driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys("chi");
+	  driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys("huynh");
+	  Random randomGenerator = new Random();  
+	  int randomInt = randomGenerator.nextInt(1000); 
+	  driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys("khanh"+randomInt+"@gmail.com");
+	  driver.findElement(By.xpath("//input[@id='password']")).sendKeys("test123");
+	  driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys("test123");
+	  driver.findElement(By.xpath("//button[@title='Register']")).click();
+	  String verify_Register = driver.findElement(By.xpath("//span[text()='Thank you for registering with Main Website Store.']")).getText();
+	  Assert.assertEquals(verify_Register, "Thank you for registering with Main Website Store.");
+	  
+	  driver.findElement(By.xpath("//div[@class='account-cart-wrapper']//span[text()='Account']")).click();
+	  driver.findElement(By.xpath("//a[@title='Log Out']")).click();
+	  
+	  String verify_home_Page = driver.getTitle();
+	  Assert.assertEquals(verify_home_Page, "Home page"); 
   }
   @BeforeTest
   public void beforeTest() {
