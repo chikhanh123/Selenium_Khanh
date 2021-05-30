@@ -28,7 +28,7 @@ public class Topic_01_Template {
 	  driver = new ChromeDriver();
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	  driver.manage().window().maximize();
-	  driver.get("live.guru99.com");
+	  driver.get("http://live.guru99.com");
   }
 
   @AfterTest

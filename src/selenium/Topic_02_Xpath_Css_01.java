@@ -3,6 +3,8 @@ package selenium;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
+import static org.testng.Assert.assertTrue;
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -13,10 +15,26 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 
+@Test
 public class Topic_02_Xpath_Css_01 {
 	WebDriver driver;
+	String firstName = "Khanh";
+	String middleName = "Chi";
+	String lastName = "Huynh";
+	String email = "Automation"+ random() +"@gmail.com";
+	String passWord = "123456";
+	String confirmPassword = "123456";
 	
-  @Test
+	
+public int random() {
+	Random random = new Random();
+	int number = random.nextInt(9000);
+	System.out.println("so random:"+number);
+	return number;
+}
+	
+	
+	
   public void Login_Empty() {
 	  driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 	  driver.findElement(By.xpath("//input[@id='email']")).sendKeys();
@@ -27,7 +45,6 @@ public class Topic_02_Xpath_Css_01 {
 	  String errorPass = driver.findElement(By.xpath("//div[@id='advice-required-entry-pass']")).getText();
 	  Assert.assertEquals(errorPass, "This is a required field.");
   }
-  @Test
   public void Login_with_Email_Invalid() {
 	  driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 	  driver.findElement(By.xpath("//input[@id='email']")).sendKeys("12343434@123.12324");
@@ -37,7 +54,6 @@ public class Topic_02_Xpath_Css_01 {
 	  
 
   }
-  @Test
   public void Login_with_Pass_lessthan_6_Characters() {
 	  driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 	  driver.findElement(By.xpath("//input[@id='email']")).sendKeys("automation@gmail.com");
@@ -47,7 +63,6 @@ public class Topic_02_Xpath_Css_01 {
 	  Assert.assertEquals(Pass_lessthan_6, "Please enter 6 or more characters without leading or trailing spaces.");
 
   }
-  @Test
   public void Login_with_Pass_Incorrect() {
 	  driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 	  driver.findElement(By.xpath("//input[@id='email']")).sendKeys("automation@gmail.com");
@@ -56,27 +71,25 @@ public class Topic_02_Xpath_Css_01 {
 	  String Pass_Incorrect = driver.findElement(By.xpath("//span[text()='Invalid login or password.']")).getText();
 	  Assert.assertEquals(Pass_Incorrect, "Invalid login or password.");
   }
-  @Test
   public void Create_an_account() {
 	  driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 	  driver.findElement(By.xpath("//span[text()='Create an Account']")).click();
-	  driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys("khanh");
-	  driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys("chi");
-	  driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys("huynh");
-	  Random randomGenerator = new Random();  
-	  int randomInt = randomGenerator.nextInt(1000); 
-	  driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys("khanh"+randomInt+"@gmail.com");
-	  driver.findElement(By.xpath("//input[@id='password']")).sendKeys("test123");
-	  driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys("test123");
+	  driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys(firstName);
+	  driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys(middleName);
+	  driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys(lastName);
+	  driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys(email);
+	  driver.findElement(By.xpath("//input[@id='password']")).sendKeys(passWord);
+	  driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys(confirmPassword);
 	  driver.findElement(By.xpath("//button[@title='Register']")).click();
 	  String verify_Register = driver.findElement(By.xpath("//span[text()='Thank you for registering with Main Website Store.']")).getText();
 	  Assert.assertEquals(verify_Register, "Thank you for registering with Main Website Store.");
 	  
 	  driver.findElement(By.xpath("//div[@class='account-cart-wrapper']//span[text()='Account']")).click();
-	  driver.findElement(By.xpath("//a[@title='Log Out']")).click();
+	  driver.findElement(By.xpath("//div[@id='header-account']//a[@title='Log Out']")).click();
 	  
-	  String verify_home_Page = driver.getTitle();
-	  Assert.assertEquals(verify_home_Page, "Home page"); 
+	  Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//img")).isDisplayed());
+	 
+	  
   }
   @BeforeTest
   public void beforeTest() {
