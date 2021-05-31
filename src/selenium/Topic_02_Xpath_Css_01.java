@@ -3,8 +3,6 @@ package selenium;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import static org.testng.Assert.assertTrue;
-
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
