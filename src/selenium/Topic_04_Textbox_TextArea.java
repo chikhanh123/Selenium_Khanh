@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 public class Topic_04_Textbox_TextArea {
 	WebDriver driver;
+	String customerID;
 	By customerName = By.xpath("//input[@type='text' and @name='name']");
 	By gender = By.xpath("//input[@type='radio' and @value='m']");
 	By dateOfBirth = By.xpath("//input[@type='date']");
@@ -25,7 +26,7 @@ public class Topic_04_Textbox_TextArea {
 	By email = By.xpath("//input[@name='emailid']");
 	By passWord = By.xpath("//input[@name='password']");
 	String customerName_value, dOb_value, address_value,city_value, state_value, Pin_value, moblieNumber_value, email_value, passWord_value;
-	
+	String edit_address, edit_city, edit_state, edit_pin, edit_mobileNumber, edit_email;
   @Test
 public void Testcase_01_login() {
 	  driver.findElement(By.xpath("//input[@name='uid']")).sendKeys("mngr330604");
@@ -74,12 +75,49 @@ public void Testcase_02_create_customer() {
 	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Pin']//following-sibling::td")).getText(), Pin_value);
 	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Mobile No.']//following-sibling::td")).getText(), moblieNumber_value);
 	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Email']//following-sibling::td")).getText(), email_value);
-	  
-	  
-			  
-
+	  customerID = driver.findElement(By.xpath("//td[text()='Customer ID']//following-sibling::td")).getText();		
+	  System.out.println(customerID);
   }
   
+  @Test
+  public void Testcase_03_edit_customer() {
+	  //data edit
+	  edit_address ="123 hoang kiem";
+	  edit_city = "Hanoi";
+	  edit_state = "abc";
+	  edit_pin = "109080";
+	  edit_mobileNumber ="0986675757";
+	  edit_email = "editKhanh" + random() + "@gamail.com";
+	  driver.findElement(By.xpath("//a[text()='Edit Customer']")).click();
+	  driver.findElement(By.xpath("//input[@type='text' and @name='cusid']")).sendKeys(customerID);
+	  driver.findElement(By.xpath("//input[@name='AccSubmit' and @value='Submit']")).click();
+	  driver.findElement(address).clear();
+	  driver.findElement(address).sendKeys(edit_address);
+	  driver.findElement(city).clear();
+	  driver.findElement(city).sendKeys(edit_city);
+	  driver.findElement(state).clear();
+	  driver.findElement(state).sendKeys(edit_state);
+	  driver.findElement(PIN).clear();
+	  driver.findElement(PIN).sendKeys(edit_pin);
+	  driver.findElement(mobileNumber).clear();
+	  driver.findElement(mobileNumber).sendKeys(edit_mobileNumber);
+	  driver.findElement(email).clear();
+	  driver.findElement(email).sendKeys(edit_email);
+	  driver.findElement(By.xpath("//input[@type='submit' and @value='Submit']")).click();
+	  
+	  Assert.assertEquals(driver.findElement(By.xpath("//p[@class='heading3' and text()='Customer details updated Successfully!!!']")).getText(), "Customer details updated Successfully!!!");
+	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Address']//following-sibling::td")).getText(), edit_address);
+	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='City']//following-sibling::td")).getText(), edit_city);
+	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='State']//following-sibling::td")).getText(), edit_state);
+	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Pin']//following-sibling::td")).getText(), edit_pin);
+	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Mobile No.']//following-sibling::td")).getText(), edit_mobileNumber);
+	  Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Email']//following-sibling::td")).getText(), edit_email);
+	  
+	  
+	  
+	  
+	  
+  }
   public int random() {
 	  Random random = new Random();
 	  int number_random = random.nextInt(9999);
