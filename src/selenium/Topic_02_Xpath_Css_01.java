@@ -91,7 +91,7 @@ public int random() {
   }
   @BeforeTest
   public void beforeTest() {
-	  System.setProperty("webdriver.chrome.driver","D:\\Selenium\\Windows OS\\chromedriver_win32\\chromedriver.exe");
+	  System.setProperty("webdriver.chrome.driver","/Users/dxcv/git/Selenium_Khanh/chromedriver");
 	  driver = new ChromeDriver();
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	  driver.manage().window().maximize();
