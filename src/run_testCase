@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Suite">
+
+<parameter name = "username" value ="automation_01@gmail.com" />
+<parameter name = "password" value ="abc123" />
+
+
+  <test name="Run on chrome browser">
+  <parameter name = "browser" value ="chrome" />
+    <classes>
+      <class name="testNG_framework.NewTest"/>
+    </classes>
+  </test> 
+  
+    <test name="Run on firefox browser">
+  <parameter name = "browser" value ="firefox" />
+    <classes>
+      <class name="testNG_framework.NewTest"/>
+    </classes>
+  </test> 
+  
+  
+  
+  
+</suite> <!-- Suite -->

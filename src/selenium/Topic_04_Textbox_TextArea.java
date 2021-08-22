@@ -127,9 +127,8 @@ public void Testcase_02_create_customer() {
   
   @BeforeTest
   public void beforeTest() {
-	  System.setProperty("webdriver.chrome.driver","/Users/dxcv/Downloads/chromedriver");
+	  System.setProperty("webdriver.chrome.driver","/Users/dxcv/git/Selenium_Khanh/chromedriver");
 	  WebDriver driver = new ChromeDriver();
-//	  driver = new ChromeDriver();
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	  driver.manage().window().maximize();
 	  driver.get("http://demo.guru99.com/v4/");
